@@ -6,7 +6,7 @@
 
 export class Network {
 
-    public static create() {
+    public static create(): Network {
 
         return new Network();
     }

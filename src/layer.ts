@@ -6,7 +6,7 @@
 
 export class Layer {
 
-    public static create() {
+    public static create(): Layer {
 
         return new Layer();
     }

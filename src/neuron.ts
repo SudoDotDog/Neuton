@@ -6,7 +6,7 @@
 
 export class Neuron {
 
-    public static create() {
+    public static create(): Neuron {
 
         return new Neuron();
     }
