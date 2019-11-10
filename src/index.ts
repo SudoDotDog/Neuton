@@ -3,3 +3,6 @@
  * @namespace Neuton
  * @description Index
  */
+
+export * from "./network";
+
