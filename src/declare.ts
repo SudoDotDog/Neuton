@@ -8,6 +8,7 @@ export interface INetwork {
 
     addLayers(...layers: ILayer[]): this;
     addLayerList(layerList: ILayer[]): this;
+    getLayers(): ILayer[];
     build(): NetworkFunction;
 }
 
@@ -18,6 +19,7 @@ export interface ILayer {
     getNeurons(): INeuron[];
 
     requires(...layers: ILayer[]): this;
+    requireInput(): this;
     getRequires(): ILayer[];
 }
 
@@ -28,6 +30,7 @@ export interface INeuron {
 
 export interface IInstance {
 
+    checkRequires(layer: ILayer): boolean;
     checkResult(layer: ILayer): boolean;
     getNeuronResult(neuron: INeuron): this;
     setNeuronResult(neuron: INeuron, value: any): this;

@@ -14,12 +14,16 @@ export class Layer implements ILayer {
     }
 
     private readonly _neurons: INeuron[];
+
     private readonly _requires: ILayer[];
+    private _requireInput: boolean;
 
     private constructor() {
 
         this._neurons = [];
+
         this._requires = [];
+        this._requireInput = false;
     }
 
     public addNeurons(...neurons: INeuron[]): this {
@@ -44,8 +48,19 @@ export class Layer implements ILayer {
         return this;
     }
 
+    public requireInput(): this {
+
+        this._requireInput = true;
+        return this;
+    }
+
     public getRequires(): ILayer[] {
 
         return this._requires;
+    }
+
+    public getRequireInput(): boolean {
+
+        return this._requireInput;
     }
 }

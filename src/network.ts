@@ -4,7 +4,8 @@
  * @description Network
  */
 
-import { ILayer, INetwork, NetworkFunction } from "./declare";
+import { ILayer, INetwork, NetworkFunction, IInstance } from "./declare";
+import { NeutonInstance } from "./instance";
 
 export class Network implements INetwork {
 
@@ -31,11 +32,31 @@ export class Network implements INetwork {
         return this;
     }
 
+    public getLayers(): ILayer[] {
+
+        return this._layers;
+    }
+
     public build(): NetworkFunction {
 
-        return (inputs: Record<string, any>) => {
+        const instance: IInstance = NeutonInstance.create();
 
-            return {};
+        const built: NetworkFunction = (inputs: Record<string, any>) => {
+
+            layerLoop: for (const layer of this.getLayers()) {
+
+                if (instance.checkResult(layer)) {
+                    continue layerLoop;
+                }
+
+                if (instance.checkRequires(layer)) {
+                    for (const neuron of layer.getNeurons()) {
+                        neuron.execute(instance);
+                    }
+                }
+            }
         };
+
+        return built;
     }
 }

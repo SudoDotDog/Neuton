@@ -20,7 +20,19 @@ export class NeutonInstance implements IInstance {
         this._results = new Map<INeuron, any>();
     }
 
-    public checkResult(layer: ILayer) {
+    public checkRequires(layer: ILayer): boolean {
+
+        const requires: ILayer[] = layer.getRequires();
+
+        for (const each of requires) {
+            if (!this.checkResult(each)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public checkResult(layer: ILayer): boolean {
 
         const neurons: INeuron[] = layer.getNeurons();
         for (const neuron of neurons) {

@@ -6,8 +6,8 @@
  */
 
 import * as Chance from 'chance';
-import { Network } from '../../src';
-import { INetwork } from '../../src/declare';
+import { Layer, Network } from '../../src';
+import { ILayer, INetwork, NetworkFunction } from '../../src/declare';
 
 describe('Given <Simple> Scenario', (): void => {
 
@@ -16,5 +16,12 @@ describe('Given <Simple> Scenario', (): void => {
     it('should be able to execute', (): void => {
 
         const network: INetwork = Network.create();
+
+        const timesTwoLayer: ILayer = Layer.create();
+        timesTwoLayer.requireInput();
+
+        const func: NetworkFunction = network.build();
+
+
     });
 });
