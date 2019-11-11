@@ -8,6 +8,7 @@
 import { expect } from 'chai';
 import * as Chance from 'chance';
 import { Neuron } from '../../src';
+import { IInstance, NeuronExecutionFunction } from '../../src/declare';
 
 describe('Given {Neuron} Class', (): void => {
 
@@ -15,7 +16,11 @@ describe('Given {Neuron} Class', (): void => {
 
     it('should be able to construct', (): void => {
 
-        const neuron: Neuron = Neuron.create();
+        const func: NeuronExecutionFunction = (instance: IInstance) => {
+            return chance.string();
+        };
+
+        const neuron: Neuron = Neuron.create(func);
 
         expect(neuron).to.be.instanceOf(Neuron);
     });
