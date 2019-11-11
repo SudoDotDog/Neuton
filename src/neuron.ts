@@ -4,14 +4,26 @@
  * @description Neuron
  */
 
-export class Neuron {
+import { IInstance, INeuron, NeuronExecutionFunction } from "./declare";
 
-    public static create(): Neuron {
+export class Neuron implements INeuron {
 
-        return new Neuron();
+    public static create(executionFunction: NeuronExecutionFunction): Neuron {
+
+        return new Neuron(executionFunction);
     }
 
-    private constructor() {
+    private readonly _executionFunction: NeuronExecutionFunction;
 
+    private constructor(executionFunction: NeuronExecutionFunction) {
+
+        this._executionFunction = executionFunction;
+    }
+
+    public execute(instance: IInstance): this {
+
+        const result: any = this._executionFunction(instance);
+        instance.setNeuronResult(this, result);
+        return this;
     }
 }

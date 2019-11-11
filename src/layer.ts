@@ -4,17 +4,17 @@
  * @description Layer
  */
 
-import { Neuron } from "./neuron";
+import { ILayer, INeuron } from "./declare";
 
-export class Layer {
+export class Layer implements ILayer {
 
     public static create(): Layer {
 
         return new Layer();
     }
 
-    private readonly _neurons: Neuron[];
-    private readonly _requires: Layer[];
+    private readonly _neurons: INeuron[];
+    private readonly _requires: ILayer[];
 
     private constructor() {
 
@@ -22,23 +22,23 @@ export class Layer {
         this._requires = [];
     }
 
-    public addNeuron(neuron: Neuron): this {
-
-        return this.addNeurons(neuron);
-    }
-
-    public addNeurons(...neurons: Neuron[]): this {
+    public addNeurons(...neurons: INeuron[]): this {
 
         return this.addNeuronList(neurons);
     }
 
-    public addNeuronList(neuronList: Neuron[]): this {
+    public addNeuronList(neuronList: INeuron[]): this {
 
         this._neurons.push(...neuronList);
         return this;
     }
 
-    public requires(...layers: Layer[]): this {
+    public getNeurons(): INeuron[] {
+
+        return this._neurons;
+    }
+
+    public requires(...layers: ILayer[]): this {
 
         this._requires.push(...layers);
         return this;
