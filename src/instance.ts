@@ -8,16 +8,29 @@ import { IInstance, ILayer, INeuron } from "./declare";
 
 export class NeutonInstance implements IInstance {
 
-    public static create(): NeutonInstance {
+    public static create(inputs: Record<string, any>): NeutonInstance {
 
-        return new NeutonInstance();
+        return new NeutonInstance(inputs);
     }
 
     private readonly _results: Map<INeuron, any>;
+    private _inputs: Record<string, any>;
 
-    private constructor() {
+    private constructor(inputs?: Record<string, any>) {
 
         this._results = new Map<INeuron, any>();
+        this._inputs = inputs || {};
+    }
+
+    public setInputs(inputs: Record<string, any>): this {
+
+        this._inputs = inputs;
+        return this;
+    }
+
+    public getInputs(): Record<string, any> {
+
+        return this._inputs;
     }
 
     public checkRequires(layer: ILayer): boolean {

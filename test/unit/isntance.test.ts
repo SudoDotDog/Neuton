@@ -15,7 +15,7 @@ describe('Given {Instance} Class', (): void => {
 
     it('should be able to construct', (): void => {
 
-        const instance: NeutonInstance = NeutonInstance.create();
+        const instance: NeutonInstance = NeutonInstance.create({});
 
         expect(instance).to.be.instanceOf(NeutonInstance);
     });

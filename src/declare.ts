@@ -34,6 +34,9 @@ export interface INeuron {
 
 export interface IInstance {
 
+    setInputs(inputs: Record<string, any>): this;
+    getInputs(): Record<string, any>;
+
     checkRequires(layer: ILayer): boolean;
     checkResult(layer: ILayer): boolean;
     getNeuronResult(neuron: INeuron): this;
@@ -41,4 +44,4 @@ export interface IInstance {
 }
 
 export type NeuronExecutionFunction = (instance: IInstance) => any;
-export type NetworkFunction = (inputs: Record<string, any>) => Record<string, any>;
+export type NetworkFunction = (inputs: Record<string, any>, instance?: IInstance) => Record<string, any>;

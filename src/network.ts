@@ -58,9 +58,11 @@ export class Network implements INetwork {
 
     public build(): NetworkFunction {
 
-        const instance: IInstance = NeutonInstance.create();
+        const built: NetworkFunction = (inputs: Record<string, any>, instance?: IInstance): Record<string, any> => {
 
-        const built: NetworkFunction = (inputs: Record<string, any>): Record<string, any> => {
+            if (!instance) {
+                return built(inputs, NeutonInstance.create(inputs));
+            }
 
             if (concludeLayersResult(instance, this.getOutputLayers())) {
                 return instance;
@@ -78,7 +80,7 @@ export class Network implements INetwork {
                     }
                 }
             }
-            return built(inputs);
+            return built(inputs, instance);
         };
 
         return built;
