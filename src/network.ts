@@ -14,4 +14,11 @@ export class Network {
     private constructor() {
 
     }
+
+    public build() {
+
+        return () => {
+            return 1;
+        };
+    }
 }
