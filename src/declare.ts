@@ -9,6 +9,10 @@ export interface INetwork {
     addLayers(...layers: ILayer[]): this;
     addLayerList(layerList: ILayer[]): this;
     getLayers(): ILayer[];
+
+    addOutputLayers(...layers: ILayer[]): this;
+    addOutputLayerList(layersList: ILayer[]): this;
+
     build(): NetworkFunction;
 }
 

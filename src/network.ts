@@ -4,8 +4,9 @@
  * @description Network
  */
 
-import { ILayer, INetwork, NetworkFunction, IInstance } from "./declare";
+import { IInstance, ILayer, INetwork, NetworkFunction } from "./declare";
 import { NeutonInstance } from "./instance";
+import { concludeLayersResult } from "./util";
 
 export class Network implements INetwork {
 
@@ -15,10 +16,12 @@ export class Network implements INetwork {
     }
 
     private readonly _layers: ILayer[];
+    private readonly _outputLayers: ILayer[];
 
     private constructor() {
 
         this._layers = [];
+        this._outputLayers = [];
     }
 
     public addLayers(...layers: ILayer[]): this {
@@ -32,6 +35,22 @@ export class Network implements INetwork {
         return this;
     }
 
+    public getOutputLayers(): ILayer[] {
+
+        return this._outputLayers;
+    }
+
+    public addOutputLayers(...layers: ILayer[]): this {
+
+        return this.addOutputLayerList(layers);
+    }
+
+    public addOutputLayerList(layerList: ILayer[]): this {
+
+        this._outputLayers.push(...layerList);
+        return this;
+    }
+
     public getLayers(): ILayer[] {
 
         return this._layers;
@@ -41,7 +60,11 @@ export class Network implements INetwork {
 
         const instance: IInstance = NeutonInstance.create();
 
-        const built: NetworkFunction = (inputs: Record<string, any>) => {
+        const built: NetworkFunction = (inputs: Record<string, any>): Record<string, any> => {
+
+            if (concludeLayersResult(instance, this.getOutputLayers())) {
+                return instance;
+            }
 
             layerLoop: for (const layer of this.getLayers()) {
 
@@ -55,6 +78,7 @@ export class Network implements INetwork {
                     }
                 }
             }
+            return built(inputs);
         };
 
         return built;
