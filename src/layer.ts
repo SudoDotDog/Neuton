@@ -43,4 +43,9 @@ export class Layer implements ILayer {
         this._requires.push(...layers);
         return this;
     }
+
+    public getRequires(): ILayer[] {
+
+        return this._requires;
+    }
 }

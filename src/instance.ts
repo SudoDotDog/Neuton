@@ -31,6 +31,14 @@ export class NeutonInstance implements IInstance {
         return true;
     }
 
+    public getNeuronResult(neuron: INeuron): any {
+
+        if (this._results.has(neuron)) {
+            return this._results.get(neuron);
+        }
+        return null;
+    }
+
     public setNeuronResult(neuron: INeuron, value: any): this {
 
         this._results.set(neuron, value);

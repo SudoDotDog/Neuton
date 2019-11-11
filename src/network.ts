@@ -8,7 +8,7 @@ import { ILayer, INetwork, NetworkFunction } from "./declare";
 
 export class Network implements INetwork {
 
-    public static create(): Network {
+    public static create(): INetwork {
 
         return new Network();
     }

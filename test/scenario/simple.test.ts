@@ -5,18 +5,16 @@
  * @override Scenario
  */
 
-import { expect } from 'chai';
 import * as Chance from 'chance';
-import { Layer } from '../../src';
+import { Network } from '../../src';
+import { INetwork } from '../../src/declare';
 
 describe('Given <Simple> Scenario', (): void => {
 
     const chance: Chance.Chance = new Chance('scenario-neuton-simple');
 
-    it('should be able to construct', (): void => {
+    it('should be able to execute', (): void => {
 
-        const layer: Layer = Layer.create();
-
-        expect(layer).to.be.instanceOf(Layer);
+        const network: INetwork = Network.create();
     });
 });
