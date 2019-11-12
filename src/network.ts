@@ -56,9 +56,18 @@ export class Network implements INetwork {
         return this._layers;
     }
 
+    public getExecutableLayers(): ILayer[] {
+
+        return [...this._layers, ...this._outputLayers];
+    }
+
     public build(): NetworkFunction {
 
-        const built: NetworkFunction = (inputs: Record<string, any>, instance?: IInstance): Record<string, any> => {
+        if (this._outputLayers.length < 1) {
+            throw new Error('[Newton] No Output Layer');
+        }
+
+        const built: NetworkFunction = (inputs: Record<string, any>, instance?: IInstance): IInstance => {
 
             if (!instance) {
                 return built(inputs, NeutonInstance.create(inputs));
@@ -68,7 +77,7 @@ export class Network implements INetwork {
                 return instance;
             }
 
-            layerLoop: for (const layer of this.getLayers()) {
+            layerLoop: for (const layer of this.getExecutableLayers()) {
 
                 if (instance.checkResult(layer)) {
                     continue layerLoop;

@@ -12,6 +12,9 @@ export interface INetwork {
 
     addOutputLayers(...layers: ILayer[]): this;
     addOutputLayerList(layersList: ILayer[]): this;
+    getOutputLayers(): ILayer[];
+
+    getExecutableLayers(): ILayer[];
 
     build(): NetworkFunction;
 }
@@ -39,9 +42,9 @@ export interface IInstance {
 
     checkRequires(layer: ILayer): boolean;
     checkResult(layer: ILayer): boolean;
-    getNeuronResult(neuron: INeuron): this;
+    getNeuronResult(neuron: INeuron): any;
     setNeuronResult(neuron: INeuron, value: any): this;
 }
 
 export type NeuronExecutionFunction = (instance: IInstance) => any;
-export type NetworkFunction = (inputs: Record<string, any>, instance?: IInstance) => Record<string, any>;
+export type NetworkFunction = (inputs: Record<string, any>, instance?: IInstance) => IInstance;
