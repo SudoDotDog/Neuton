@@ -5,10 +5,10 @@
  * @override Scenario
  */
 
+import { expect } from 'chai';
 import * as Chance from 'chance';
 import { Layer, Network, Neuron } from '../../src';
-import { ILayer, INetwork, NetworkFunction, IInstance } from '../../src/declare';
-import { expect } from 'chai';
+import { IInstance, ILayer, INetwork, NetworkFunction } from '../../src/declare';
 
 describe('Given <Simple> Scenario', (): void => {
 
@@ -28,7 +28,8 @@ describe('Given <Simple> Scenario', (): void => {
             const input = instance.getInputs();
             return input[key];
         });
-        timesTwoLayer.addNeurons(inputPassNeuron)
+
+        timesTwoLayer.addNeurons(inputPassNeuron);
         network.addLayers(timesTwoLayer);
 
         const outputLayer: ILayer = Layer.create();
@@ -44,7 +45,7 @@ describe('Given <Simple> Scenario', (): void => {
 
         const result: IInstance = func({
             [key]: value,
-        })
+        });
         expect(result.getNeuronResult(outputNeuron)).to.be.equal(value * 2);
     });
 });
