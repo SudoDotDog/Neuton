@@ -12,6 +12,7 @@ import { Network } from '../../src/network';
 
 describe('Given {Network} Class', (): void => {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const chance: Chance.Chance = new Chance('neuton-network');
 
     it('should be able to construct', (): void => {

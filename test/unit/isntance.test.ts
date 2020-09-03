@@ -11,6 +11,7 @@ import { NeutonInstance } from '../../src/instance';
 
 describe('Given {Instance} Class', (): void => {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const chance: Chance.Chance = new Chance('neuton-instance');
 
     it('should be able to construct', (): void => {
